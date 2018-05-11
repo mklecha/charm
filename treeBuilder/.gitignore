@@ -1,0 +1,7 @@
+.idea/
+data/*
+!data/stopwords.csv
+!data/test_data.csv
+
+target/*
+charm.iml
