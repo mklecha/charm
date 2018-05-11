@@ -1,0 +1,7 @@
+treeBuilder/.idea/
+treeBuilder/data/*
+!treeBuilder/data/stopwords.csv
+!treeBuilder/data/test_data.csv
+
+treeBuilder/target/*
+.idea/
