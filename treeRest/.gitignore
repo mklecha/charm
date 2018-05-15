@@ -1,7 +1,11 @@
-/target/
+target/
+
+data/*
+!data/.gitkeep
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+
