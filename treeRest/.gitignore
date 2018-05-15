@@ -3,6 +3,8 @@ target/
 data/*
 !data/.gitkeep
 
+*Temp*
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
