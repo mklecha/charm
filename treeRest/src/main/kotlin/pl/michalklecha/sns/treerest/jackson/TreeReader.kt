@@ -21,7 +21,9 @@ class TreeReader(val filename: String) {
 
     fun getTree(): Tree {
         val filename = File(filename)
-        return mapper.readValue(filename, Tree::class.java)
+        val tree = mapper.readValue(filename, Tree::class.java)
+        tree.index()
+        return tree
     }
 }
 
