@@ -3,16 +3,46 @@ package pl.michalklecha.sns.treeBuilder.logic.tree;
 import pl.michalklecha.sns.treeBuilder.model.ItemsWithTids;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TreeImpl extends Tree {
+
+    private ArrayList<ItemsWithTids> items;
+    private HashSet<ItemsWithTids> added = new HashSet<>();
+
     public TreeImpl(Collection<ItemsWithTids> closed) {
         super(new ItemsWithTids());
-        ArrayList<ItemsWithTids> list = new ArrayList<>(closed);
-        list.sort(Comparator.comparingInt(o -> o.getItems().size()));
-        list.forEach(this::addNode);
+        this.items = new ArrayList<>(closed);
+        items.stream().filter(item -> item.getItems().size() == 1).forEach((item) -> {
+            if (!added.contains(item)) {
+                this.addNewBranch(item, getSublist(item, items));
+            }
+        });
+    }
+
+    private void addNewBranch(ItemsWithTids item, List<ItemsWithTids> sublist) {
+        addBranch(this.root, item, sublist);
+        addNode(item, this.root);
+    }
+
+    private void addBranch(Node parent, ItemsWithTids item, List<ItemsWithTids> sublist) {
+//        addNode(item, parent);
+
+    }
+
+    private List<ItemsWithTids> getSublist(ItemsWithTids node, ArrayList<ItemsWithTids> items) {
+        return items.stream()
+                .filter(listItem -> listItem.containsAll(node))
+                .collect(Collectors.toList());
     }
 
     @Override
+    public void addNode(ItemsWithTids item, Node parent) {
+        Node node = new Node(item);
+        parent.addChild(node);
+    }
+
+    //region
     public void addNode(ItemsWithTids item) {
         Set<Node> potentialParents = findPotentialParents(item, Collections.singleton(root));
         Node parent = chooseParent(item, potentialParents);
@@ -89,5 +119,6 @@ public class TreeImpl extends Tree {
     public String toString() {
         return root.toString();
     }
+    //endregion
 
 }

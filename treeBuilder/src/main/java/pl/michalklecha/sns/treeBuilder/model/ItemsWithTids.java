@@ -64,7 +64,7 @@ public class ItemsWithTids implements Comparable<ItemsWithTids> {
         StringJoiner sj2 = new StringJoiner(", ");
 
         itemSets.stream().sorted().forEach(i -> sj2.add("" + i.getId()));
-        return "pattern: [" + sj.toString() + "]; supp: " + this.getSupport() + "; tidset: [" + sj2.toString() + "]";
+        return "pattern: [" + sj.toString() + "]; supp: " + this.getSupport() + "; ";//tidset: [" + sj2.toString() + "]";
     }
 
     public String getKey() {

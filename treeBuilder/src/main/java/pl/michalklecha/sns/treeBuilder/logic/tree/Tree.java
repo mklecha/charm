@@ -9,7 +9,7 @@ public abstract class Tree {
         root = new Node(rootData);
     }
 
-    abstract public void addNode(ItemsWithTids node);
+    abstract public void addNode(ItemsWithTids item, Node parent);
 
     public Node getRoot() {
         return root;
