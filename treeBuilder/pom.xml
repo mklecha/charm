@@ -8,7 +8,6 @@
     <artifactId>tree-builder</artifactId>
     <version>1.0</version>
 
-
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -42,6 +41,12 @@
             <type>pom</type>
         </dependency>
 
+        <!-- GraphStream -->
+        <dependency>
+            <groupId>org.graphstream</groupId>
+            <artifactId>gs-core</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
 
 

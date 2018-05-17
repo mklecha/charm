@@ -50,7 +50,7 @@ public class Program {
         }
 
         if (config.getShowResult()) {
-            Visualisator v = new Visualisator();
+            Visualisator v = Visualisator.getVisualisator();
             v.loadTree(tree);
             v.show();
         }

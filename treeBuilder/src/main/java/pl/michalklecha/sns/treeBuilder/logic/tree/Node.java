@@ -55,6 +55,10 @@ public class Node {
         return result;
     }
 
+    public String getLabel() {
+        return data.getItems().toString().replaceAll("\\d", "");
+    }
+
     @Override
     public String toString() {
         return "Node{" +
