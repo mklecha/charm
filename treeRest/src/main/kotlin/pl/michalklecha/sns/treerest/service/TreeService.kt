@@ -29,7 +29,7 @@ class TreeService {
     fun getOrItems(param: Array<String>): Set<Int> {
         var ids: Set<Int> = tree.getIds(param[0]) as MutableSet<Int>
         param.forEach { item ->
-            ids = ids.intersect(tree.getIds(item))
+            ids = ids.intersect(tree.getIds(item.toLowerCase()))
         }
         return ids
     }
@@ -37,7 +37,7 @@ class TreeService {
     fun getAndItems(param: Array<String>): Set<Int> {
         val ids: MutableSet<Int> = mutableSetOf()
         param.forEach { item ->
-            ids.addAll(tree.getIds(item))
+            ids.addAll(tree.getIds(item.toLowerCase()))
         }
         return ids
     }
