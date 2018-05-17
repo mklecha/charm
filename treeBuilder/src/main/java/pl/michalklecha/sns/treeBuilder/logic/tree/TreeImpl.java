@@ -17,18 +17,20 @@ public class TreeImpl extends Tree {
         super(new ItemsWithTids());
         this.items = new ArrayList<>(closed);
         items.sort(Comparator.comparingInt(ItemsWithTids::getSupport).reversed());
-        items.forEach(this::addItem);
+        items.forEach(this::analyzeItem);
     }
 
+    private void analyzeItem(ItemsWithTids item) {
+        if (!lockedPatterns.contains(item) && item.getItems().stream().noneMatch(lockedTerms::contains)) {
+            addItem(item);
+        }
+    }
 
     private void addItem(ItemsWithTids item) {
-        boolean lcIntersection = item.getItems().stream().anyMatch(lockedTerms::contains);
-        if (!lockedPatterns.contains(item) && !lcIntersection) {
-            List<ItemsWithTids> sublist = getSublist(item, items);
-            lockedPatterns.addAll(sublist);
-            sublist.forEach(subItem -> lockedTerms.addAll(subItem.getItems()));
-            addSubTree(item, sublist);
-        }
+        List<ItemsWithTids> sublist = getSublist(item, items);
+        lockedPatterns.addAll(sublist);
+        sublist.forEach(subItem -> lockedTerms.addAll(subItem.getItems()));
+        addSubTree(item, sublist);
     }
 
     private List<ItemsWithTids> getSublist(ItemsWithTids item, ArrayList<ItemsWithTids> items) {
@@ -40,12 +42,12 @@ public class TreeImpl extends Tree {
     private void addSubTree(ItemsWithTids item, List<ItemsWithTids> sublist) {
         Node node = new Node(item);
         this.root.addChild(node);
-        sublist.forEach(subItem -> addNode(subItem, Collections.singleton(node)));
+        sublist.forEach(subItem -> addNode(subItem, node));
     }
 
     //region add node to given part of the tree (f.e. one node)
-    private void addNode(ItemsWithTids item, Set<Node> possibleParents) {
-        Set<Node> potentialParents = findPotentialParents(item, possibleParents);
+    private void addNode(ItemsWithTids item, Node localRoot) {
+        Set<Node> potentialParents = findPotentialParents(item, Collections.singleton(localRoot));
         Node parent = chooseParent(item, potentialParents);
         parent.addChild(item);
     }
