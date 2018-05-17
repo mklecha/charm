@@ -33,7 +33,7 @@ public class Program {
         logger.log(Level.INFO, "Result: {0} closed itemsets", sns.getClosed().size());
 
         Tree tree = sns.buildTree();
-        logger.log(Level.INFO, "Tree built");
+        logger.log(Level.INFO, "Tree built: {0} branches", tree.getRoot().getChildren().size());
 
         showResults(config, tree, sns);
         saveTree(config, tree);
