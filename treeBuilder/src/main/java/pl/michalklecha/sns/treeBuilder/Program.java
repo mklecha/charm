@@ -23,10 +23,12 @@ public class Program {
     }
 
     private static void goSns(Config config) throws InterruptedException {
+        logger.log(Level.INFO, "Starting with config: min support = {0}, thread count = {1}", new Object[]{config.getMinSupport(), config.getThreadCount()});
         Sns sns = new Sns(config.getMinSupport(), config.getThreadCount());
 
         DataLoader.loadTransactions(config.getInputFilename(), config.getCVLimit(), config.getStopwords());
         sns.loadItems();
+        logger.log(Level.INFO, "{0} items loaded", sns.getItemsSize());
 
         sns.extractFrequentItems();
         sns.goCharm(config.getTimeout());

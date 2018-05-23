@@ -46,4 +46,8 @@ public class Sns {
     public Tree buildTree() {
         return new TreeImpl(charm.getClosed().values());
     }
+
+    public int getItemsSize() {
+        return items.size();
+    }
 }

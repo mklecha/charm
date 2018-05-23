@@ -31,9 +31,7 @@ public class ItemSet extends HashSet<Item> implements Comparable<ItemSet> {
 
 
     public void addThisToItems() {
-        for (Item item : this) {
-            item.add(this);
-        }
+        this.forEach(item -> item.add(this));
     }
 
     public long getId() {
