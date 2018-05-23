@@ -20,6 +20,10 @@ public class TreeImpl extends Tree {
         items.forEach(this::analyzeItem);
     }
 
+    public TreeImpl(Node root) {
+        super(root);
+    }
+
     private void analyzeItem(ItemsWithTids item) {
         if (!lockedPatterns.contains(item) && item.getItems().stream().noneMatch(lockedTerms::contains)) {
             addItem(item);
@@ -114,7 +118,29 @@ public class TreeImpl extends Tree {
     private boolean isFinalParent(ItemsWithTids node, Node potentialParent) {
         return isParent(node, potentialParent) && potentialParent.getChildren().stream().noneMatch(child -> isParent(node, child));
     }
+
     //endregion
+    private Set<Node> findNodes(String label) {
+        return findNodes(root, label);
+    }
+
+    private Set<Node> findNodes(Node root, String label) {
+        Set<Node> set = root.getChildren().stream().filter(node -> node.getItem().getItemsByName().contains(label)).collect(Collectors.toSet());
+        if (set.size() > 0) {
+            return set;
+        }
+        HashSet<Node> nodes = new HashSet<>();
+        root.getChildren().forEach(child -> nodes.addAll(findNodes(child, label)));
+        return nodes;
+    }
+
+    @Override
+    public Tree getSubtree(String label) {
+        Set<Node> nodes = findNodes(label);
+        Node root = new Node(new ItemsWithTids());
+        nodes.forEach(root::addChild);
+        return new TreeImpl(root);
+    }
 
     @Override
     public String toString() {

@@ -25,8 +25,7 @@ public class GraphstreamImpl implements Visualisator {
         tree.getRoot().getChildren().forEach(child -> addChild(tree.getRoot(), child));
     }
 
-    public void addChild(pl.michalklecha.sns.treeBuilder.logic.tree.Node parent, pl.michalklecha.sns.treeBuilder.logic.tree.Node node) {
-        Node parentNode = graph.getNode(parent.getLabel());
+    private void addChild(pl.michalklecha.sns.treeBuilder.logic.tree.Node parent, pl.michalklecha.sns.treeBuilder.logic.tree.Node node) {
         Node addedNode = graph.addNode(node.getLabel());
         addedNode.addAttribute("label", node.getLabel());
         graph.addEdge(parent.getLabel() + node.getLabel(), parent.getLabel(), node.getLabel());

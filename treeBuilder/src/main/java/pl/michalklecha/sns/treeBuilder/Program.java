@@ -54,6 +54,7 @@ public class Program {
         if (config.getShowResult()) {
             Visualisator v = Visualisator.getVisualisator();
             v.loadTree(tree);
+            v.loadTree(tree.getSubtree("java"));
             v.show();
         }
     }
