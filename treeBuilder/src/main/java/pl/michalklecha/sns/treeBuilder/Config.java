@@ -29,28 +29,36 @@ public class Config {
         return properties.getProperty("charm.data.in.stopwords");
     }
 
-    public String getOutputFilename() {
-        return properties.getProperty("charm.data.out.filename");
+    public String getCharmOutputDirectory() {
+        return properties.getProperty("charm.data.directory");
     }
 
     public int getCVLimit() {
         return Integer.parseInt(properties.getProperty("charm.cv_limit"));
     }
 
-    public int getMinSupport() {
+    public int getMinSupportPercent() {
         return Integer.parseInt(properties.getProperty("charm.min_support"));
-    }
-
-    public int getThreadCount() {
-        return Integer.parseInt(properties.getProperty("app.thread_count"));
-    }
-
-    public boolean getPrintResult() {
-        return Boolean.parseBoolean(properties.getProperty("app.print_result"));
     }
 
     public int getTimeout() {
         return Integer.parseInt(properties.getProperty("charm.timeout"));
+    }
+
+    public int getThreadCount() {
+        return Integer.parseInt(properties.getProperty("charm.thread_count"));
+    }
+
+    public String getTreeSubject() {
+        return properties.getProperty("sns.tree_subject");
+    }
+
+    public String getOutputFilename() {
+        return properties.getProperty("sns.data.out.filename");
+    }
+
+    public boolean getPrintResult() {
+        return Boolean.parseBoolean(properties.getProperty("app.print_result"));
     }
 
     public boolean getShowResult() {

@@ -4,9 +4,9 @@ import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import org.apache.commons.collections15.Transformer;
-import pl.michalklecha.sns.treeBuilder.model.ItemsWithTids;
-import pl.michalklecha.sns.treeBuilder.logic.tree.Node;
-import pl.michalklecha.sns.treeBuilder.logic.tree.Tree;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.sns.tree.Node;
+import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
 
 import javax.swing.*;
 

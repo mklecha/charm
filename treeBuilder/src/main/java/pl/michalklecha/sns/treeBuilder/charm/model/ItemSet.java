@@ -1,12 +1,13 @@
-package pl.michalklecha.sns.treeBuilder.model;
+package pl.michalklecha.sns.treeBuilder.charm.model;
 
 import pl.michalklecha.sns.treeBuilder.util.Counter;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-public class ItemSet extends HashSet<Item> implements Comparable<ItemSet> {
+public class ItemSet extends HashSet<Item> implements Comparable<ItemSet>, Serializable {
     private long id;
 
     public ItemSet() {

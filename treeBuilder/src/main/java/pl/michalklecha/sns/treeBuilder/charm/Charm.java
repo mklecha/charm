@@ -1,10 +1,10 @@
-package pl.michalklecha.sns.treeBuilder.logic;
+package pl.michalklecha.sns.treeBuilder.charm;
 
-import pl.michalklecha.sns.treeBuilder.logic.intersection.IntersectionFinder;
-import pl.michalklecha.sns.treeBuilder.logic.intersection.IntersectionsWithProperty;
-import pl.michalklecha.sns.treeBuilder.model.Item;
-import pl.michalklecha.sns.treeBuilder.model.ItemSet;
-import pl.michalklecha.sns.treeBuilder.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.charm.intersection.IntersectionFinder;
+import pl.michalklecha.sns.treeBuilder.charm.intersection.IntersectionsWithProperty;
+import pl.michalklecha.sns.treeBuilder.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemSet;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Charm {
 
     private final int minSupport;
+    private final int timeoutSeconds;
     private IntersectionFinder finder = new IntersectionFinder();
     private Set<Item> items;
 
@@ -21,8 +22,9 @@ public class Charm {
 
     private ExecutorService executorService;
 
-    public Charm(int minSupport, int threadCount) {
+    public Charm(int minSupport, int threadCount, int timeoutSeconds) {
         this.minSupport = minSupport;
+        this.timeoutSeconds = timeoutSeconds;
         closed = new HashMap<>();
         executorService = Executors.newFixedThreadPool(threadCount);
     }
@@ -31,19 +33,19 @@ public class Charm {
         this.items = frequentItems;
     }
 
-    public void go(int timeout) throws InterruptedException {
+    public void startAlgorithm() throws InterruptedException {
         ArrayList<ItemsWithTids> iwts = new ArrayList<>();
-        this.items.forEach(item -> {
+        this.items.stream().filter(item -> item.getSupport() >= minSupport).forEach(item -> {
             ItemsWithTids iwt = new ItemsWithTids();
             iwt.addItem(item);
             iwts.add(iwt);
         });
         go(iwts);
         executorService.shutdown();
-        executorService.awaitTermination(timeout, TimeUnit.SECONDS);
+        executorService.awaitTermination(timeoutSeconds, TimeUnit.SECONDS);
     }
 
-    public void go(List<ItemsWithTids> items) {
+    private void go(List<ItemsWithTids> items) {
         Collections.sort(items);
 
         HashSet<Integer> deletedIndexes = new HashSet<>();
@@ -107,7 +109,7 @@ public class Charm {
         closed.put(key, closedItem);
     }
 
-    public HashMap<String, ItemsWithTids> getClosed() {
+    public HashMap<String, ItemsWithTids> getFrequentItemsets() {
         return this.closed;
     }
 }

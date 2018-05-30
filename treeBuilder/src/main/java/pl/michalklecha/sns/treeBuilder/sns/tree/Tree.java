@@ -1,6 +1,6 @@
-package pl.michalklecha.sns.treeBuilder.logic.tree;
+package pl.michalklecha.sns.treeBuilder.sns.tree;
 
-import pl.michalklecha.sns.treeBuilder.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
 
 public abstract class Tree {
     Node root;

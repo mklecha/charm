@@ -1,6 +1,8 @@
 package pl.michalklecha.sns.treeBuilder.model;
 
 import org.junit.jupiter.api.Test;
+import pl.michalklecha.sns.treeBuilder.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemSet;
 import pl.michalklecha.sns.treeBuilder.util.Counter;
 
 import java.util.Arrays;

@@ -1,11 +1,12 @@
-package pl.michalklecha.sns.treeBuilder.model;
+package pl.michalklecha.sns.treeBuilder.charm.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-public class ItemsWithTids implements Comparable<ItemsWithTids> {
+public class ItemsWithTids implements Comparable<ItemsWithTids>, Serializable {
 
     private HashSet<Item> items;
     private HashSet<ItemSet> itemSets;

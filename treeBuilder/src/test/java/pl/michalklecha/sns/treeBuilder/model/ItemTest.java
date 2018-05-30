@@ -1,6 +1,7 @@
 package pl.michalklecha.sns.treeBuilder.model;
 
 import org.junit.jupiter.api.Test;
+import pl.michalklecha.sns.treeBuilder.charm.model.Item;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

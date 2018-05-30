@@ -1,18 +1,10 @@
-package pl.michalklecha.sns.treeBuilder.logic;
+package pl.michalklecha.sns.treeBuilder.util;
 
-import pl.michalklecha.sns.treeBuilder.model.Item;
+import pl.michalklecha.sns.treeBuilder.charm.model.Item;
 
 import java.util.HashMap;
 
 public class WordMap extends HashMap<String, Item> {
-    private static WordMap ourInstance = new WordMap();
-
-    private WordMap() {
-    }
-
-    public static WordMap getInstance() {
-        return ourInstance;
-    }
 
     public Item getItem(String word) {
         Item item = this.get(word);

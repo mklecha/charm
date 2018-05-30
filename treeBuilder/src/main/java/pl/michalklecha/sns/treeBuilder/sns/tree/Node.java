@@ -1,7 +1,7 @@
-package pl.michalklecha.sns.treeBuilder.logic.tree;
+package pl.michalklecha.sns.treeBuilder.sns.tree;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.michalklecha.sns.treeBuilder.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
 
 import java.util.ArrayList;
 import java.util.List;

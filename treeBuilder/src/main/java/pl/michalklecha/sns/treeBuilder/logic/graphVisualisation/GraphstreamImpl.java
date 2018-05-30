@@ -4,7 +4,7 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.Viewer;
-import pl.michalklecha.sns.treeBuilder.logic.tree.Tree;
+import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
 
 public class GraphstreamImpl implements Visualisator {
     private Graph graph;
@@ -25,7 +25,7 @@ public class GraphstreamImpl implements Visualisator {
         tree.getRoot().getChildren().forEach(child -> addChild(tree.getRoot(), child));
     }
 
-    private void addChild(pl.michalklecha.sns.treeBuilder.logic.tree.Node parent, pl.michalklecha.sns.treeBuilder.logic.tree.Node node) {
+    private void addChild(pl.michalklecha.sns.treeBuilder.sns.tree.Node parent, pl.michalklecha.sns.treeBuilder.sns.tree.Node node) {
         Node addedNode = graph.addNode(node.getLabel());
         addedNode.addAttribute("label", node.getLabel());
         graph.addEdge(parent.getLabel() + node.getLabel(), parent.getLabel(), node.getLabel());

@@ -1,10 +1,10 @@
-package pl.michalklecha.sns.treeBuilder.model;
+package pl.michalklecha.sns.treeBuilder.charm.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 
-
-public class Item extends HashSet<ItemSet> implements Comparable<Item> {
+public class Item extends HashSet<ItemSet> implements Comparable<Item>, Serializable {
     private String name;
 
     public Item(String item) {
@@ -25,6 +25,7 @@ public class Item extends HashSet<ItemSet> implements Comparable<Item> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item another = (Item) o;
+        if(another.name == null) return false;
         return this.name.equals(another.name);
     }
 

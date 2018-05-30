@@ -1,4 +1,4 @@
-package pl.michalklecha.sns.treeBuilder.util;
+package pl.michalklecha.sns.treeBuilder.io;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import pl.michalklecha.sns.treeBuilder.Config;
-import pl.michalklecha.sns.treeBuilder.logic.tree.Node;
-import pl.michalklecha.sns.treeBuilder.logic.tree.Tree;
+import pl.michalklecha.sns.treeBuilder.sns.tree.Node;
+import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
 
 import java.io.File;
 import java.io.IOException;

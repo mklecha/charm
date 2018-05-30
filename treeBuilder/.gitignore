@@ -2,6 +2,8 @@
 data/*
 !data/stopwords.csv
 !data/test_data.csv
+!data/sns/.gitkeep
+!data/charm/.gitkeep
 
 target/*
 charm.iml

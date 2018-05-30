@@ -1,7 +1,7 @@
-package pl.michalklecha.sns.treeBuilder.logic.tree;
+package pl.michalklecha.sns.treeBuilder.sns.tree;
 
-import pl.michalklecha.sns.treeBuilder.model.Item;
-import pl.michalklecha.sns.treeBuilder.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
 
 import java.util.*;
 import java.util.stream.Collectors;

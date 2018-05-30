@@ -1,44 +1,43 @@
 package pl.michalklecha.sns.treeBuilder;
 
-import pl.michalklecha.sns.treeBuilder.logic.Sns;
+import pl.michalklecha.sns.treeBuilder.charm.CharmWrapper;
+import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.io.TreeJsonSaver;
 import pl.michalklecha.sns.treeBuilder.logic.graphVisualisation.Visualisator;
-import pl.michalklecha.sns.treeBuilder.logic.tree.Tree;
-import pl.michalklecha.sns.treeBuilder.util.DataLoader;
-import pl.michalklecha.sns.treeBuilder.util.TreeJsonSaver;
+import pl.michalklecha.sns.treeBuilder.sns.Sns;
+import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Program {
     private static final Logger logger = Logger.getLogger("Main");
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws FileNotFoundException {
         Config config = new Config();
-
-        long start = System.currentTimeMillis();
-
-        goSns(config);
-
-        logger.log(Level.INFO, "time: {0}ms.", (System.currentTimeMillis() - start));
+        logger.log(Level.INFO, "Config read");
+        calculate(config);
     }
 
-    private static void goSns(Config config) throws InterruptedException {
-        logger.log(Level.INFO, "Starting with config: min support = {0}, thread count = {1}", new Object[]{config.getMinSupport(), config.getThreadCount()});
-        Sns sns = new Sns(config.getMinSupport(), config.getThreadCount());
+    private static void calculate(Config config) throws FileNotFoundException {
+        CharmWrapper charmWrapper = new CharmWrapper(config);
+        HashMap<String, ItemsWithTids> frequentItemsets = charmWrapper.getFrequentItemsets();
+        logger.log(Level.INFO, "Charm done");
 
-        DataLoader.loadTransactions(config.getInputFilename(), config.getCVLimit(), config.getStopwords());
-        sns.loadItems();
-        logger.log(Level.INFO, "{0} items loaded", sns.getItemsSize());
 
-        sns.extractFrequentItems();
-        sns.goCharm(config.getTimeout());
-        logger.log(Level.INFO, "Result: {0} closed itemsets", sns.getClosed().size());
+        Sns sns = new Sns();
+        sns.loadFrequentItemsets(frequentItemsets);
+        Tree tree = sns.buildTree(config.getTreeSubject());
+        logger.log(Level.INFO, "Tree built");
 
-        Tree tree = sns.buildTree();
-        logger.log(Level.INFO, "Tree built: {0} branches", tree.getRoot().getChildren().size());
-
-        showResults(config, tree, sns);
         saveTree(config, tree);
+        logger.log(Level.INFO, "Tree saved");
+
+        showResults(config, tree, frequentItemsets);
     }
 
     private static void saveTree(Config config, Tree tree) {
@@ -46,15 +45,16 @@ public class Program {
         tjs.save(tree);
     }
 
-    private static void showResults(Config config, Tree tree, Sns sns) {
+    private static void showResults(Config config, Tree tree, HashMap<String, ItemsWithTids> frequentItemsets) {
         if (config.getPrintResult()) {
-            sns.printClosed();
+            ArrayList<ItemsWithTids> closed = new ArrayList<>(frequentItemsets.values());
+            Collections.sort(closed);
+            closed.forEach(System.out::println);
         }
 
         if (config.getShowResult()) {
             Visualisator v = Visualisator.getVisualisator();
             v.loadTree(tree);
-            v.loadTree(tree.getSubtree("java"));
             v.show();
         }
     }
