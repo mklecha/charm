@@ -15,16 +15,26 @@ public class TreeImpl extends Tree {
 
     public TreeImpl(Collection<ItemsWithTids> closed) {
         super(new ItemsWithTids());
+        startAnalysing(closed);
+    }
+
+    public TreeImpl(Collection<ItemsWithTids> closed, ItemsWithTids root) {
+        super(root);
+        startAnalysing(closed);
+    }
+
+    private TreeImpl(Node root) {
+        super(root);
+    }
+
+    private void startAnalysing(Collection<ItemsWithTids> closed) {
         this.items = new ArrayList<>(closed);
         items.sort(Comparator.comparingInt(ItemsWithTids::getSupport).reversed());
         items.forEach(this::analyzeItem);
     }
 
-    public TreeImpl(Node root) {
-        super(root);
-    }
-
     private void analyzeItem(ItemsWithTids item) {
+        lockedTerms.removeAll(root.getItem().getItems());
         if (!lockedPatterns.contains(item) && item.getItems().stream().noneMatch(lockedTerms::contains)) {
             addItem(item);
         }
