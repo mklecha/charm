@@ -1,18 +1,16 @@
-package pl.michalklecha.sns.treeBuilder.charm;
+package pl.michalklecha.sns.treeBuilder.logic.charm;
 
 import pl.michalklecha.sns.treeBuilder.Config;
-import pl.michalklecha.sns.treeBuilder.charm.model.Item;
 import pl.michalklecha.sns.treeBuilder.io.DataLoader;
 import pl.michalklecha.sns.treeBuilder.io.FrequentItemsetLoader;
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemsWithTids;
 import pl.michalklecha.sns.treeBuilder.util.MD5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -61,18 +59,28 @@ public class CharmWrapper {
         }
     }
 
-    public HashMap<String, ItemsWithTids> getFrequentItemsets() {
+    public List<ItemsWithTids> getFrequentItemsets() {
         if (checkIfFileComputed()) {
             logger.log(Level.INFO, "Dataset already calculated, loading from memory");
             return FrequentItemsetLoader.loadObject(this.charmOutputDirectory + getHash() + EXTENSION);
         } else {
             logger.log(Level.INFO, "Dataset not yet calculated, starting Charm");
-            HashMap<String, ItemsWithTids> frequentItemsets = calculateFrequentItemsets();
+            List<ItemsWithTids> frequentItemsets = new LinkedList<>(calculateFrequentItemsets().values());
+
+            logger.log(Level.INFO, "Preparing frequent itemsets to save - deleting circular dependency");
+            prepareFrequentItemsetsToSave(frequentItemsets);
 
             logger.log(Level.INFO, "Saving frequent itemsets to memory");
-//            FrequentItemsetLoader.saveObject(this.charmOutputDirectory + getHash() + EXTENSION, frequentItemsets);
+            FrequentItemsetLoader.saveObject(this.charmOutputDirectory + getHash() + EXTENSION, frequentItemsets);
             return frequentItemsets;
         }
+    }
+
+    private void prepareFrequentItemsetsToSave(List<ItemsWithTids> frequentItemsets) {
+        frequentItemsets.forEach(itemsWithTids -> {
+            itemsWithTids.getItems().forEach(HashSet::clear);
+            itemsWithTids.getItemSets().forEach(HashSet::clear);
+        });
     }
 
     private HashMap<String, ItemsWithTids> calculateFrequentItemsets() {

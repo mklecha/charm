@@ -1,4 +1,4 @@
-package pl.michalklecha.sns.treeBuilder.charm.model;
+package pl.michalklecha.sns.treeBuilder.logic.charm.model;
 
 import pl.michalklecha.sns.treeBuilder.util.Counter;
 

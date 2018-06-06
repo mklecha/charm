@@ -1,7 +1,7 @@
 package pl.michalklecha.sns.treeBuilder.io;
 
-import pl.michalklecha.sns.treeBuilder.charm.model.Item;
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemSet;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemSet;
 import pl.michalklecha.sns.treeBuilder.util.WordMap;
 
 import java.io.IOException;

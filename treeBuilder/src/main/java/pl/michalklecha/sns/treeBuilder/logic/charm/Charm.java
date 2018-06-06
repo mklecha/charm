@@ -1,10 +1,10 @@
-package pl.michalklecha.sns.treeBuilder.charm;
+package pl.michalklecha.sns.treeBuilder.logic.charm;
 
-import pl.michalklecha.sns.treeBuilder.charm.intersection.IntersectionFinder;
-import pl.michalklecha.sns.treeBuilder.charm.intersection.IntersectionsWithProperty;
-import pl.michalklecha.sns.treeBuilder.charm.model.Item;
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemSet;
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
+import pl.michalklecha.sns.treeBuilder.logic.charm.intersection.IntersectionFinder;
+import pl.michalklecha.sns.treeBuilder.logic.charm.intersection.IntersectionsWithProperty;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemSet;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemsWithTids;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;

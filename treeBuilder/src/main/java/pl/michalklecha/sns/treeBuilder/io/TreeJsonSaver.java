@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import pl.michalklecha.sns.treeBuilder.Config;
-import pl.michalklecha.sns.treeBuilder.sns.tree.Node;
-import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
+import pl.michalklecha.sns.treeBuilder.logic.sns.tree.Node;
+import pl.michalklecha.sns.treeBuilder.logic.sns.tree.Tree;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class TreeJsonSaver {
         ObjectMapper mapper = new ObjectMapper();
 
         SimpleModule module = new SimpleModule();
-        module.addSerializer(Node.class, new NodeSerializer());
+        module.addSerializer(Node.class, new NodeSerializer(false));
         mapper.registerModule(module);
 
         try {
@@ -36,8 +36,11 @@ public class TreeJsonSaver {
 
 class NodeSerializer extends StdSerializer<Node> {
 
-    public NodeSerializer() {
+    boolean saveIds;
+
+    public NodeSerializer(boolean saveIds) {
         this(null);
+        this.saveIds = false;
     }
 
     public NodeSerializer(Class<Node> t) {
@@ -49,7 +52,9 @@ class NodeSerializer extends StdSerializer<Node> {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeObjectField("items", node.getItem().getItemsByName());
         jsonGenerator.writeNumberField("depth", node.getDepth());
-        jsonGenerator.writeObjectField("ids", node.getItem().getItemSetsByName());
+        if (saveIds) {
+            jsonGenerator.writeObjectField("ids", node.getItem().getItemSetsByName());
+        }
         jsonGenerator.writeNumberField("support", node.getItem().getSupport());
         jsonGenerator.writeObjectField("children", node.getChildren());
         jsonGenerator.writeEndObject();

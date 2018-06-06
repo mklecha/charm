@@ -1,6 +1,6 @@
-package pl.michalklecha.sns.treeBuilder.charm.intersection;
+package pl.michalklecha.sns.treeBuilder.logic.charm.intersection;
 
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemSet;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemSet;
 
 import java.util.HashSet;
 

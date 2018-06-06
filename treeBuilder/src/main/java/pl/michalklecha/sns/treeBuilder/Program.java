@@ -1,16 +1,16 @@
 package pl.michalklecha.sns.treeBuilder;
 
-import pl.michalklecha.sns.treeBuilder.charm.CharmWrapper;
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemsWithTids;
 import pl.michalklecha.sns.treeBuilder.io.TreeJsonSaver;
+import pl.michalklecha.sns.treeBuilder.logic.charm.CharmWrapper;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemsWithTids;
 import pl.michalklecha.sns.treeBuilder.logic.graphVisualisation.Visualisator;
-import pl.michalklecha.sns.treeBuilder.sns.Sns;
-import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
+import pl.michalklecha.sns.treeBuilder.logic.sns.Sns;
+import pl.michalklecha.sns.treeBuilder.logic.sns.tree.Tree;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,9 +25,8 @@ public class Program {
 
     private static void calculate(Config config) throws FileNotFoundException {
         CharmWrapper charmWrapper = new CharmWrapper(config);
-        HashMap<String, ItemsWithTids> frequentItemsets = charmWrapper.getFrequentItemsets();
+        List<ItemsWithTids> frequentItemsets = charmWrapper.getFrequentItemsets();
         logger.log(Level.INFO, "Charm done");
-
 
         Sns sns = new Sns();
         sns.loadFrequentItemsets(frequentItemsets);
@@ -45,9 +44,9 @@ public class Program {
         tjs.save(tree);
     }
 
-    private static void showResults(Config config, Tree tree, HashMap<String, ItemsWithTids> frequentItemsets) {
+    private static void showResults(Config config, Tree tree, List<ItemsWithTids> frequentItemsets) {
         if (config.getPrintResult()) {
-            ArrayList<ItemsWithTids> closed = new ArrayList<>(frequentItemsets.values());
+            ArrayList<ItemsWithTids> closed = new ArrayList<>(frequentItemsets);
             Collections.sort(closed);
             closed.forEach(System.out::println);
         }

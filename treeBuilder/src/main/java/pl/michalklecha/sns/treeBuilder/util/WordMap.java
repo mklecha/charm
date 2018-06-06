@@ -1,6 +1,6 @@
 package pl.michalklecha.sns.treeBuilder.util;
 
-import pl.michalklecha.sns.treeBuilder.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.Item;
 
 import java.util.HashMap;
 

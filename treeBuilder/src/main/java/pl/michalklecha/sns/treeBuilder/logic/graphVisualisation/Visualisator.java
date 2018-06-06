@@ -1,6 +1,6 @@
 package pl.michalklecha.sns.treeBuilder.logic.graphVisualisation;
 
-import pl.michalklecha.sns.treeBuilder.sns.tree.Tree;
+import pl.michalklecha.sns.treeBuilder.logic.sns.tree.Tree;
 
 public interface Visualisator {
     void show();

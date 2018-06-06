@@ -1,8 +1,8 @@
-package pl.michalklecha.sns.treeBuilder.charm.intersection;
+package pl.michalklecha.sns.treeBuilder.logic.charm.intersection;
 
 import org.junit.jupiter.api.Test;
-import pl.michalklecha.sns.treeBuilder.charm.model.Item;
-import pl.michalklecha.sns.treeBuilder.charm.model.ItemSet;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.Item;
+import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemSet;
 
 import java.util.Arrays;
 
