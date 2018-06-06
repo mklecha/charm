@@ -23,6 +23,13 @@
             <version>2.9.5</version>
         </dependency>
 
+        <!-- POJO serialization -->
+        <dependency>
+            <groupId>de.ruedigermoeller</groupId>
+            <artifactId>fst</artifactId>
+            <version>2.57</version>
+        </dependency>
+
         <!-- Tree Visualisation -->
         <dependency>
             <groupId>net.sf.jung</groupId>

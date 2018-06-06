@@ -49,6 +49,10 @@ public class Config {
         return Integer.parseInt(properties.getProperty("charm.thread_count"));
     }
 
+    public Boolean getSaveTreeWithIds() {
+        return Boolean.parseBoolean(properties.getProperty("sns.save_tree_with_ids"));
+    }
+
     public String getTreeSubject() {
         return properties.getProperty("sns.tree_subject");
     }

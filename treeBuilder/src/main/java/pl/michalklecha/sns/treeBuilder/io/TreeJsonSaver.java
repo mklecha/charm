@@ -14,16 +14,18 @@ import java.io.IOException;
 
 public class TreeJsonSaver {
     private String filename;
+    private boolean saveIds;
 
     public TreeJsonSaver(Config config) {
         filename = config.getOutputFilename();
+        saveIds = config.getSaveTreeWithIds();
     }
 
     public void save(Tree tree) {
         ObjectMapper mapper = new ObjectMapper();
 
         SimpleModule module = new SimpleModule();
-        module.addSerializer(Node.class, new NodeSerializer(false));
+        module.addSerializer(Node.class, new NodeSerializer(this.saveIds));
         mapper.registerModule(module);
 
         try {
@@ -36,11 +38,11 @@ public class TreeJsonSaver {
 
 class NodeSerializer extends StdSerializer<Node> {
 
-    boolean saveIds;
+    private boolean saveIds;
 
     public NodeSerializer(boolean saveIds) {
         this(null);
-        this.saveIds = false;
+        this.saveIds = saveIds;
     }
 
     public NodeSerializer(Class<Node> t) {
