@@ -25,8 +25,9 @@ public class Program {
 
     private static void calculate(Config config) throws FileNotFoundException {
         CharmWrapper charmWrapper = new CharmWrapper(config);
+        long start = System.currentTimeMillis();
         List<ItemsWithTids> frequentItemsets = charmWrapper.getFrequentItemsets();
-        logger.log(Level.INFO, "Charm done");
+        logger.log(Level.INFO, "Charm done, {0} miliseconds", new Object[]{System.currentTimeMillis() - start});
 
         Sns sns = new Sns();
         sns.loadFrequentItemsets(frequentItemsets);

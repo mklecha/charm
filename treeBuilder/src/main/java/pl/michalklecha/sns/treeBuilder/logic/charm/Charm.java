@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Charm {
 
@@ -29,13 +30,13 @@ public class Charm {
         executorService = Executors.newFixedThreadPool(threadCount);
     }
 
-    public void loadItems(Set<Item> frequentItems) {
-        this.items = frequentItems;
+    public void loadItems(Set<Item> items) {
+        this.items = items.stream().filter(item -> item.getSupport() >= minSupport).collect(Collectors.toSet());
     }
 
     public void startAlgorithm() throws InterruptedException {
         ArrayList<ItemsWithTids> iwts = new ArrayList<>();
-        this.items.stream().filter(item -> item.getSupport() >= minSupport).forEach(item -> {
+        this.items.forEach(item -> {
             ItemsWithTids iwt = new ItemsWithTids();
             iwt.addItem(item);
             iwts.add(iwt);
@@ -54,7 +55,6 @@ public class Charm {
             if (deletedIndexes.contains(i)) continue;
             int finalI = i;
             Runnable r = () -> {
-
                 List<ItemsWithTids> newItems = new ArrayList<>();
                 for (int j = finalI + 1; j < items.size(); j++) {
                     if (deletedIndexes.contains(finalI)) continue;
