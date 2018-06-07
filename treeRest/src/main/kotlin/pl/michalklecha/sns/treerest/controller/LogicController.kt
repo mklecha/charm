@@ -23,4 +23,7 @@ class LogicController {
 
     @GetMapping("and")
     fun andItems(@RequestParam("param") param: Array<String>) = treeService.getAndItems(param)
+
+    @GetMapping("parent")
+    fun parent(@RequestParam("param") param : String) = treeService.getParents(param)
 }

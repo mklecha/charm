@@ -6,6 +6,7 @@ import java.util.*
 
 @Service
 class ConfigService {
+    //    private val PROPERTIES_FILE = "./app.properties"
     private val PROPERTIES_FILE = "C:\\Users\\michalklecha\\IdeaProjects\\charm\\treeRest\\src\\main\\resources\\app.properties"
 
     private val properties = Properties()

@@ -1,7 +1,7 @@
 package pl.michalklecha.sns.treerest.model
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import pl.michalklecha.sns.treerest.jackson.deserializers.TreeDeserializer
+import pl.michalklecha.sns.treerest.dataLoader.jackson.deserializers.TreeDeserializer
 
 @JsonDeserialize(using = TreeDeserializer::class)
 data class Tree(private val root: Node) {

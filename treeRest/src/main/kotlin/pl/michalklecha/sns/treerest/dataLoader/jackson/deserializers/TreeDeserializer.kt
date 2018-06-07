@@ -1,4 +1,4 @@
-package pl.michalklecha.sns.treerest.jackson.deserializers
+package pl.michalklecha.sns.treerest.dataLoader.jackson.deserializers
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext

@@ -1,9 +1,9 @@
-package pl.michalklecha.sns.treerest.jackson
+package pl.michalklecha.sns.treerest.dataLoader.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-import pl.michalklecha.sns.treerest.jackson.deserializers.NodeDeserializer
-import pl.michalklecha.sns.treerest.jackson.deserializers.TreeDeserializer
+import pl.michalklecha.sns.treerest.dataLoader.jackson.deserializers.NodeDeserializer
+import pl.michalklecha.sns.treerest.dataLoader.jackson.deserializers.TreeDeserializer
 import pl.michalklecha.sns.treerest.model.Node
 import pl.michalklecha.sns.treerest.model.Tree
 import java.io.File
