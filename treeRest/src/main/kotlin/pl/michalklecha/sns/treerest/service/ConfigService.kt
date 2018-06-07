@@ -17,7 +17,11 @@ class ConfigService {
         }
     }
 
-    fun getInputFilename(): String {
+    fun getCharmInputFilename(): String {
+        return properties.getProperty("charm.data.in.filename")
+    }
+
+    fun getTreeInputFilename(): String {
         return properties.getProperty("tree.data.in.filename")
     }
 

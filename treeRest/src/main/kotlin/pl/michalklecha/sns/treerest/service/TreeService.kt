@@ -14,7 +14,7 @@ class TreeService {
 
     @PostConstruct
     fun init() {
-        val treeReader = TreeReader(config.getInputFilename())
+        val treeReader = TreeReader(config.getTreeInputFilename())
         tree = treeReader.getTree()
     }
 
@@ -40,9 +40,5 @@ class TreeService {
             ids.addAll(tree.getIds(item.toLowerCase()))
         }
         return ids
-    }
-
-    fun getParents(param: String): List<String> {
-        return listOf()
     }
 }

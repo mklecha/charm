@@ -55,6 +55,14 @@
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
 
+        <!-- treeBuilder classes -->
+        <dependency>
+            <groupId>pl.michalklecha</groupId>
+            <artifactId>treeBuilder</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/treeBuilder.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
