@@ -2,9 +2,12 @@ package pl.michalklecha.sns.treeBuilder;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Config {
     //    private static final String PROPERTIES_FILE = "./app.properties";
@@ -53,8 +56,11 @@ public class Config {
         return Boolean.parseBoolean(properties.getProperty("sns.save_tree_with_ids"));
     }
 
-    public String getTreeSubject() {
-        return properties.getProperty("sns.tree_subject");
+    public List<String> getTreeSubject() {
+        List<String> subject = Arrays.asList(properties.getProperty("sns.tree_subject").split(","));
+        return subject.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
     }
 
     public String getOutputFilename() {

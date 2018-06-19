@@ -16,12 +16,12 @@ public class Sns {
         this.frequentItemsets = frequentItemsets;
     }
 
-    public Tree buildTree(String subject) {
-        if (subject == null || subject.length() == 0) {
+    public Tree buildTree(List<String> subject) {
+        if (subject == null || subject.size() == 0 || subject.stream().anyMatch(it -> it.length() == 0)) {
             return buildTree();
         }
         List<ItemsWithTids> items = this.frequentItemsets;
-        items = items.stream().filter(item -> item.getItemsByName().contains(subject.toLowerCase())).collect(Collectors.toList());
+        items = items.stream().filter(item -> item.getItemsByName().containsAll(subject)).collect(Collectors.toList());
         items.sort(Comparator.comparingInt(ItemsWithTids::getSupport).reversed());
         ItemsWithTids root = items.remove(0);
         return new TreeImpl(items, root);
