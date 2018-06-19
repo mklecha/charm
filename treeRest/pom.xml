@@ -59,8 +59,7 @@
         <dependency>
             <groupId>pl.michalklecha</groupId>
             <artifactId>treeBuilder</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/treeBuilder.jar</systemPath>
+            <version>0.0.1</version>
         </dependency>
 
     </dependencies>
@@ -69,8 +68,35 @@
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/src/main/resources/treeBuilder.jar</file>
+                            <groupId>pl.michalklecha</groupId>
+                            <artifactId>treeBuilder</artifactId>
+                            <version>0.0.1</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>

@@ -1,0 +1,7 @@
+version: '2.1'
+
+services:
+  treeRest:
+    image: pu/charm
+    ports:
+      - "28080:8080"

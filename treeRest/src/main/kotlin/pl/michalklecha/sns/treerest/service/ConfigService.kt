@@ -6,8 +6,8 @@ import java.util.*
 
 @Service
 class ConfigService {
-    //    private val PROPERTIES_FILE = "./app.properties"
-    private val PROPERTIES_FILE = "C:\\Users\\michalklecha\\IdeaProjects\\charm\\treeRest\\src\\main\\resources\\app.properties"
+        private val PROPERTIES_FILE = "./app.properties"
+//    private val PROPERTIES_FILE = "C:\\Users\\michalklecha\\IdeaProjects\\charm\\treeRest\\src\\main\\resources\\app.properties"
 
     private val properties = Properties()
 
@@ -20,9 +20,4 @@ class ConfigService {
     fun getCharmInputFilename(): String {
         return properties.getProperty("charm.data.in.filename")
     }
-
-    fun getTreeInputFilename(): String {
-        return properties.getProperty("tree.data.in.filename")
-    }
-
 }
