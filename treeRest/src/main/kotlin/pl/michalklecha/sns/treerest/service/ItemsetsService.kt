@@ -4,18 +4,31 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import pl.michalklecha.sns.treeBuilder.io.FrequentItemsetLoader
 import pl.michalklecha.sns.treeBuilder.logic.charm.model.ItemsWithTids
-import java.util.stream.Collectors
 import javax.annotation.PostConstruct
 
 @Service
 class ItemsetsService {
     @Autowired
     lateinit var configService: ConfigService
-    lateinit var frequentItemsets: List<ItemsWithTids>
+    var itemMap: MutableMap<String, MutableSet<Long>> = mutableMapOf()
 
     @PostConstruct
     fun init() {
-        frequentItemsets = FrequentItemsetLoader.loadObject(configService.getCharmInputFilename())
+        val frequentItemsets = FrequentItemsetLoader.loadObject(configService.getCharmInputFilename())
+        loadItems(frequentItemsets)
+    }
+
+    private fun loadItems(frequentItemsets: List<ItemsWithTids>) {
+        frequentItemsets.stream()
+                .forEach({
+                    val item = it.items.stream().findFirst().get()
+                    if (!itemMap.containsKey(item.name))
+                        itemMap[item.name] = mutableSetOf()
+
+                    it.itemSets.stream().map { it.id }.forEach {
+                        itemMap[item.name]?.add(it)
+                    }
+                })
     }
 
     fun getAndLookup(param: List<String>): Int {
@@ -27,37 +40,25 @@ class ItemsetsService {
     }
 
     fun getAndItems(param: List<String>): Set<Long> {
-        val frequentItemset = frequentItemsets.stream()
-                .filter({ it -> containsAll(it, param) })
-                .sorted { o1, o2 -> o1.items.size.compareTo(o2.items.size) }
-                .findFirst()
-        if (!frequentItemset.isPresent)
-            return setOf()
+        var result: Set<Long> = mutableSetOf()
+        var initialized = false
+        param.forEach {
+            if (!initialized) {
+                result = itemMap[it] ?: setOf()
+                initialized = true
+            } else {
+                result = result.intersect(itemMap[it] ?: setOf())
+            }
+        }
 
-        return frequentItemset.get().itemSets.stream()
-                .map { it -> it.id }
-                .collect(Collectors.toSet()) ?: setOf()
-    }
-
-    fun getOrItems(param: List<String>): Set<Long> {
-        val result = mutableSetOf<Long>()
-        frequentItemsets.stream()
-                .filter({ it -> containsAny(it, param) })
-                .forEach { it ->
-                    result.addAll(it.itemSets.stream()
-                            .map { it2 -> it2.id }
-                            .collect(Collectors.toSet())
-                    )
-                }
         return result
     }
 
-    private fun containsAny(it: ItemsWithTids?, param: List<String>): Boolean {
-        return it?.itemsByName?.any { str -> param.contains(str) } ?: false
-
-    }
-
-    private fun containsAll(it: ItemsWithTids?, param: List<String>): Boolean {
-        return it?.itemsByName?.containsAll(param) ?: false
+    fun getOrItems(param: List<String>): Set<Long> {
+        val result: MutableSet<Long> = mutableSetOf()
+        param.forEach {
+            result.addAll(itemMap[it] ?: setOf())
+        }
+        return result
     }
 }
