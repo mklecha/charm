@@ -56,7 +56,7 @@ public class Node {
     }
 
     public String getLabel() {
-        return data.getItems().toString().replaceAll("\\d", "");
+        return data.getItems().toString().replaceAll("\\d*\\{", "{");
     }
 
     @Override
