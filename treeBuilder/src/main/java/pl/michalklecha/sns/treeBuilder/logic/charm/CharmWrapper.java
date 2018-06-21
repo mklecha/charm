@@ -60,6 +60,7 @@ public class CharmWrapper {
     }
 
     public List<ItemsWithTids> getFrequentItemsets() {
+        logger.log(Level.INFO, "Dataset hash: {0}", getHash());
         if (checkIfFileComputed()) {
             logger.log(Level.INFO, "Dataset already calculated, loading from memory");
             return FrequentItemsetLoader.loadObject(this.charmOutputDirectory + getHash() + EXTENSION);
